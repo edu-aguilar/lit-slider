@@ -10,6 +10,8 @@ export class ProgressBarDemo extends LitElement {
       }
       progress-bar {
         margin: 1rem 0;
+        --progress-bar-background-color: #BCED09;
+        --progress-bar-foreground-color: #2F52E0;
       }
     `];
   }
@@ -20,10 +22,16 @@ export class ProgressBarDemo extends LitElement {
     };
   }
 
+  constructor() {
+    super();
+    this.value = 30;
+  }
+
   firstUpdated() {
     let slider = this.shadowRoot.querySelector('input');
     slider.addEventListener('change', (event) => {
       let value = event.path[0].value;
+      this.value = value;
       this._setProgressBarValue(value);
     })
   }
@@ -36,8 +44,9 @@ export class ProgressBarDemo extends LitElement {
   render() {
     return html`
       <p>Try this slider to see how progress-bar works</p>
-      <input type="range" value="30" name="progress" min="0" max="100">
-      <progress-bar _progress="30"></progress-bar>
+      <input type="range" value="${this.value}" name="progress" min="0" max="100">
+      <span>${this.value}</span>
+      <progress-bar .progress="${this.value}"></progress-bar>
     `;
   }
 }

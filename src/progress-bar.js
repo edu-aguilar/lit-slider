@@ -6,18 +6,20 @@ export class ProgressBar extends LitElement {
     return [css `
        :host {
           display: block;
-          height: 20px;
-          width: 300px;
-          background-color: #e6e6e6;
+          height: var(--progress-bar-height, 20px);
+          width: var(--progress-bar-width, 100%);
+          background-color: var(--progress-bar-background-color, #E500FF);
           position: relative;
+          border-radius: var(--progress-bar-radius, 8px);
         }
         .progress {
           position: absolute;
           z-index: 20;
           width: 0px;
           height: 100%;
-          background-color: red;
+          background-color: var(--progress-bar-foreground-color, #1131FF);
           transition: ease 0.5s all;
+          border-radius: var(--progress-bar-radius, 8px);
         }
     `];
   }
@@ -56,7 +58,7 @@ export class ProgressBar extends LitElement {
 
   render() {
     return html`
-      <div class="progress">${this._progress}</div>
+      <div class="progress"></div>
     `;
   }
 
